@@ -14,9 +14,12 @@ defmodule BeamREDWeb.Router do
     plug :accepts, ["json"]
   end
 
+  import Phoenix.NodeRed.Router
+
   scope "/", BeamREDWeb do
     pipe_through :browser
 
+    nodered "/nodered", []
     get "/", PageController, :home
   end
 
