@@ -2,12 +2,14 @@ defmodule BeamREDWeb.Router do
   use BeamREDWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    # plug :accepts, ["html"]
+    plug :accepts, ["html", "json"]
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, html: {BeamREDWeb.Layouts, :root}
-    plug :protect_from_forgery
+    # plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Phoenix.Plugs.DebugPlug, label: "Plug.Static"
   end
 
   pipeline :api do
@@ -19,8 +21,8 @@ defmodule BeamREDWeb.Router do
   scope "/", BeamREDWeb do
     pipe_through :browser
 
-    nodered "/nodered", []
-    get "/", PageController, :home
+    nodered("/nodered", [])
+    # get "/", PageController, :home
   end
 
   # Other scopes may use custom stacks.
